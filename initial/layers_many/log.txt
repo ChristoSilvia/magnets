@@ -1,0 +1,27 @@
+//output directory: layers_nocurrent.out/
+sizex := 160e-9
+sizey := 80e-9
+sizez := 5e-9
+nx := 64
+ny := 32
+setgridsize(nx, ny, 1)
+setcellsize(sizex/nx, sizey/ny, sizez)
+setgeom(ellipse(sizex, sizey))
+Msat = 800e3
+Aex = 13e-12
+alpha = 0.01
+m = uniform(1, 0, 0)
+lambda = 1
+Pol = 0.5669
+epsilonprime = 0
+angle := 20
+px := cos(angle * pi / 180)
+py := sin(angle * pi / 180)
+fixedlayer = vector(px, py, 0)
+Jtot := -0.000
+area := sizex * sizey * pi / 4
+jc := Jtot / area
+J = vector(0, 0, jc)
+autosave(m, 5e-12)
+tableautosave(5e-12)
+run(1e-9)

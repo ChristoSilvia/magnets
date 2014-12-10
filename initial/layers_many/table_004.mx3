@@ -1,0 +1,39 @@
+// geometry
+sizex := 160e-9
+sizey := 80e-9
+sizez := 5e-9
+
+nx := 256
+ny := 128
+
+setgridsize(nx, ny, 1)
+setcellsize(sizex/nx, sizey/ny, sizez)
+setgeom(ellipse(sizex,sizey))
+
+// setup free layer
+Msat  = 800e3
+Aex   = 13e-12
+alpha = 0.01
+m     = uniform(1, 0, 0)
+
+// setup spacer layer parameters
+lambda       = 1
+Pol          = 0.5669
+epsilonprime = 0
+
+// setup fixed layer polarization
+angle := 20
+px := cos(angle * pi/180)
+py := sin(angle * pi/180)
+fixedlayer = vector(px, py, 0)
+
+// send current
+Jtot := -0.004 //Amps
+area := sizex*sizey*pi/4
+jc   := Jtot / area //Amps/m^2 current density
+J = vector(0,0,jc)
+
+// schedule, output, and run
+autosave(m, 5e-12)
+tableautosave(5e-12)
+run(1e-9)
